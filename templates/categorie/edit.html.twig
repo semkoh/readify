@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une Catégorie{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="mb-5" style="color: rgb(22, 21, 21); font-weight: bold;">Modifier la Catégorie</h1>
+    </div>
+
+    <div class="card shadow-lg p-4 mx-auto mb-5" style="max-width: 700px; background-color: #f9f9f9; border-radius: 15px;">
+        <h4 class="text-center mb-4" style="color: rgb(31, 30, 30);">Mise à jour des informations de la catégorie</h4>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.nom, 'Nom de la catégorie', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom de la catégorie'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Entrez une brève description'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-readify-outline">Mettre à jour la catégorie</button>
+        </div>
+
+        {{ form_end(form) }}
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_categorie_index') }}" class="btn btn-readify-outline"> Retour à la liste des catégories</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

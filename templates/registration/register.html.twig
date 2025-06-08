@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .register-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-card h2 {
+        color:rgb(20, 19, 19);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .form-check-label {
+        font-size: 0.9rem;
+    }
+
+    .already {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: rgb(245, 248, 247);">
+    <div class="register-card">
+        <h2>Créer un compte</h2>
+
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        {{ form_start(registrationForm) }}
+
+            <div class="mb-3">
+                {{ form_row(registrationForm.nom, { label: 'Nom' }) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.prenom, { label: 'Prénom' }) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.email, { label: 'Adresse email' }) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
+            </div>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="mb-3">
+                    {{ form_row(registrationForm.role, { label: 'Rôle' }) }}
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                {{ form_row(registrationForm.agreeTerms, { label: "J'accepte les conditions" }) }}
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-readify-outline w-100">S'inscrire</button>
+            </div>
+
+        {{ form_end(registrationForm) }}
+
+        <p class="already">
+            Déjà un compte ? <a href="{{ path('app_login') }}" style="color:rgb(25, 25, 25);">Connectez-vous</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

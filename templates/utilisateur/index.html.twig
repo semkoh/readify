@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Utilisateurs{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 4px 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .table th, .table td {
+        font-size: 0.85rem;
+        padding: 6px 8px !important;
+        vertical-align: middle;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .table thead {
+        background-color: rgb(10, 10, 10);
+        color: white;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="mb-4" style="color: rgb(14, 13, 13); font-weight: bold;">Liste des Utilisateurs</h1>
+    </div>
+
+    <div class="card p-3 shadow-sm table-container">
+        <table class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th style="max-width: 150px;">Mot de passe</th>
+                    <th>Rôle</th>
+                    <th>Date de désactivation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for utilisateur in utilisateurs %}
+                    <tr>
+                        <td>{{ utilisateur.id }}</td>
+                        <td>{{ utilisateur.nom }}</td>
+                        <td>{{ utilisateur.prenom }}</td>
+                        <td>{{ utilisateur.email }}</td>
+                        <td></td>
+                        <td>{{ utilisateur.role.value }}</td>
+                        <td>{{ utilisateur.dateDesactivation ? utilisateur.dateDesactivation|date('Y-m-d') : '-' }}</td>
+                        <td>
+                            <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-readify-outline btn-sm mb-1">Voir</a>
+                            <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-readify-outline btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center text-white" style="background-color:rgb(11, 11, 11);">Aucun utilisateur trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="{{ path('app_utilisateur_new') }}" class="btn btn-readify-outline">Créer un nouvel utilisateur</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<form method="post" action="{{ path('app_auteur_delete', {'id': auteur.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ auteur.id) }}">
+    
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-readify-outline">
+             Supprimer l'auteur
+        </button>
+    </div>
+</form>
+
+<style>
+.btn-readify-outline {
+    color: rgb(15, 14, 14);
+    border: 1px solid rgb(46, 45, 45);
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.btn-readify-outline:hover {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    border-color: rgb(84, 83, 83);
+}
+</style>

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Catégories{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 6px 16px;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .table thead {
+        background-color:rgb(22, 21, 21);
+        color: white;
+    }
+
+    .card-categorie {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+    }
+
+    h1.section-title {
+        color:rgb(28, 28, 28);
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="section-title"> Liste des Catégories</h1>
+    </div>
+
+    <div class="card-categorie">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>{{ categorie.id }}</td>
+                        <td>{{ categorie.nom }}</td>
+                        <td>{{ categorie.description }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" class="btn btn-readify-outline btn-sm">Voir</a>
+                            <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="btn btn-readify-outline btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Aucune catégorie trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="text-center mt-4">
+        <a href="{{ path('app_categorie_new') }}" class="btn btn-readify-outline btn-lg"> Créer une nouvelle catégorie</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

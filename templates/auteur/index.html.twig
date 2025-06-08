@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Auteurs{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .section-title {
+        color:rgb(12, 12, 12);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .card-auteur {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        max-width: 280px;
+        margin: auto;
+    }
+
+    .card-auteur:hover {
+        transform: translateY(-4px);
+    }
+
+    .card-auteur img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .card-auteur .card-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-auteur .card-text {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <h1 class="section-title"> Nos Auteurs</h1>
+
+    <div class="row g-4">
+        {% for auteur in auteurs %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card-auteur">
+                    {% if auteur.urlPhotoProfil %}
+                        <img src="{{ auteur.urlPhotoProfil }}" alt="Photo de {{ auteur.nom }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/100" alt="Photo par défaut">
+                    {% endif %}
+
+                    <h5 class="card-title">{{ auteur.nom }} {{ auteur.prenom }}</h5>
+                    <p class="card-text">
+                        {{ auteur.biographie|length > 100 ? auteur.biographie[:100] ~ '...' : auteur.biographie }}
+                    </p>
+
+                    <div class="btn-container">
+                        <a href="{{ path('app_auteur_show', {'id': auteur.id}) }}" class="btn btn-readify-outline btn-sm">Voir détails</a>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}" class="btn btn-readify-outline btn-sm">Modifier</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12 text-center text-muted">
+                Aucun auteur trouvé.
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-center mt-5">
+            <a href="{{ path('app_auteur_new') }}" class="btn btn-readify-outline btn-lg"> Ajouter un nouvel auteur</a>
+        </div>
+    {% endif %}
+{% endblock %}

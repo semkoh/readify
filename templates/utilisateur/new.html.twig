@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Nouvel Utilisateur{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="mb-5" style="color:rgb(16, 15, 15); font-weight: bold;">Créer un Nouvel Utilisateur</h1>
+    </div>
+
+    <div class="card shadow-lg p-4 mx-auto mb-5" style="max-width: 700px; background-color: #f9f9f9; border-radius: 15px;">
+        <h4 class="text-center mb-4" style="color:rgb(11, 11, 11);">Veuillez remplir les informations de l'utilisateur</h4>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le prénom'}}) }}
+            {{ form_errors(form.prenom) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'exemple@readify.com'}}) }}
+            {{ form_errors(form.email) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.motDePasse, 'Mot de Passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.motDePasse, {'attr': {'class': 'form-control', 'placeholder': '••••••••'}}) }}
+            {{ form_errors(form.motDePasse) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.role, 'Rôle', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.role, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.role) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.dateDesactivation, 'Date de Désactivation', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dateDesactivation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateDesactivation) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-readify-outline">Créer l'utilisateur</button>
+        </div>
+
+        {{ form_end(form) }}
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_utilisateur_index') }}" class="btn btn-readify-outline"> Retour à la liste des utilisateurs</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

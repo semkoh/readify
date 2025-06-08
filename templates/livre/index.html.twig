@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Livres{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        background-color: rgba(216, 187, 150, 0.15);
+    }
+
+    h1 {
+        color:rgb(8, 8, 8);
+    }
+
+    .card-livre {
+        background-color: rgba(255, 255, 255, 0.93);
+        border-radius: 12px;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .card-livre:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #4b2e2e;
+    }
+
+    .card-text, .text-muted {
+        color: #555 !important;
+    }
+
+    .prix {
+        font-weight: bold;
+        color: #6b3e3e;
+    }
+
+    .btn-readify-outline {
+    color:rgb(15, 14, 14);
+    border: 1px solidrgb(46, 45, 45);
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-readify-outline:hover {
+    background-color:rgb(25, 25, 25);
+    color: white;
+    border-color:rgb(84, 83, 83);
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+<h1 class="mb-5 text-center fw-bold">
+   Découvrez notre sélection de livres
+</h1>
+
+<div class="row g-4">
+    {% for livre in livres %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card card-livre h-100 shadow-sm border-0">
+                {% if livre.image %}
+                    <img src="{{ livre.image }}" class="card-img-top" alt="{{ livre.titre }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/200x250?text=Livre" class="card-img-top" alt="placeholder">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">{{ livre.titre }}</h5>
+                    <p class="text-center text-muted small mb-1">par {{ livre.auteur.nom }}</p>
+                    <p class="card-text small">{{ livre.description|length > 100 ? livre.description[:100] ~ '...' : livre.description }}</p>
+
+                    <div class="mt-auto text-center">
+                        <p class="prix fs-6">{{ livre.prix }} €</p>
+                        <a href="{{ path('app_livre_show', {'id': livre.id}) }}"
+                           class="btn btn-readify-outline btn-sm mt-2 px-3">
+                            Voir plus
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12">
+            <p class="text-center text-white-50">Aucun livre trouvé pour l'instant.</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="text-center mt-5">
+        <a href="{{ path('app_livre_new') }}" class="btn btn-readify-outline px-4 py-2">+ Ajouter un nouveau livre</a>
+    </div>
+{% endif %}
+{% endblock %}

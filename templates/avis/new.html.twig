@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Avis{% endblock %}
+
+{% block stylesheets %}
+<style>
+    h1 {
+        color:rgb(18, 17, 17);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .table thead {
+        background-color: #f2f2f2;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 5px 15px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Liste des Avis</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead>
+                <tr>
+                    <th>Note</th>
+                    <th>Contenu</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for avis in avis %}
+                    <tr>
+                        <td>{{ avis.note }}</td>
+                        <td>{{ avis.contenu }}</td>
+                        <td>{{ avis.dateAvis|date('Y-m-d') }}</td>
+                        <td>
+                            <a href="{{ path('app_avis_show', {'id': avis.id}) }}" class="btn btn-readify-outline">Voir</a>
+                            <a href="{{ path('app_avis_edit', {'id': avis.id}) }}" class="btn btn-readify-outline">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Aucun avis trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Commande{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 6px 16px;
+        font-size: 0.95rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .commande-card {
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+        max-width: 750px;
+        margin: auto;
+    }
+
+    h1 {
+        color:rgb(24, 24, 24);
+        font-weight: bold;
+    }
+
+    .table th {
+        width: 30%;
+    }
+
+    .telecharger-btn {
+        border-color: #198754;
+        color: #198754;
+    }
+
+    .telecharger-btn:hover {
+        background-color: #198754;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+         <h1> Détail de la commande</h1>
+    </div>
+
+    <div class="commande-card">
+        <table class="table">
+            <tbody>
+                <tr><th>ID</th><td>{{ commande.id }}</td></tr>
+                <tr><th>Date de commande</th><td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d') : '-' }}</td></tr>
+                <tr><th>Prix Total</th><td><strong>{{ commande.prixTotal }} €</strong></td></tr>
+                <tr><th>État</th><td class="text-capitalize">{{ commande.etat }}</td></tr>
+                <tr><th>Date de paiement</th><td>{{ commande.datePaiement ? commande.datePaiement|date('Y-m-d') : '-' }}</td></tr>
+                <tr><th>Méthode de paiement</th><td>{{ commande.methodePaiement ?: '-' }}</td></tr>
+                <tr>
+                    <th>Livres</th>
+                    <td>
+                        {% for contenir in commande.contenirs %}
+                            {% set livre = contenir.livre %}
+                            <div class="mb-2">
+                                <strong>{{ livre.titre }}</strong>
+                                {% if commande.etat == 'payée' and livre.fichierNumerique %}
+                                    <a href="{{ path('app_livre_download', {'id': livre.id}) }}" class="btn btn-sm telecharger-btn ms-2">
+                                         Télécharger
+                                    </a>
+                                {% elseif commande.etat != 'payée' %}
+                                    <span class="text-warning ms-2">(Paiement requis)</span>
+                                {% else %}
+                                    <span class="text-muted ms-2">(Fichier non disponible)</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% if commande.etat == 'en cours' and commande.utilisateur == app.user %}
+            <div class="text-center mt-4">
+                <a href="{{ path('app_paypal_create_payment', {'orderId': commande.id}) }}" class="btn btn-success">
+                     Payer avec PayPal
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-center mt-4 gap-3">
+            <a href="{{ path('app_commande_index') }}" class="btn btn-readify-outline"> Retour</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-readify-outline"> Modifier</a>
+            {% endif %}
+        </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="text-center mt-4">
+                {{ include('commande/_delete_form.html.twig') }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

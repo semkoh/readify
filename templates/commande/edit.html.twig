@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Commande{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .form-container {
+        max-width: 700px;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1, h4 {
+        color:rgb(18, 18, 18);
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>Modifier la Commande</h1>
+    </div>
+
+    <div class="form-container mx-auto">
+        <h4 class="text-center mb-4">Mise à jour des informations de la commande</h4>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.dateCommande) }}
+            {{ form_widget(form.dateCommande, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.prixTotal) }}
+            {{ form_widget(form.prixTotal, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.etat) }}
+            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.datePaiement) }}
+            {{ form_widget(form.datePaiement, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.methodePaiement) }}
+            {{ form_widget(form.methodePaiement, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.utilisateur) }}
+            {{ form_widget(form.utilisateur, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-readify-outline">Mettre à jour la commande</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ path('app_commande_index') }}" class="btn btn-readify-outline">← Retour à la liste des commandes</a>
+    </div>
+</div>
+{% endblock %}

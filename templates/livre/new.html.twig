@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Livre{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        margin: auto;
+    }
+
+    h1 {
+        color: #212121;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .btn-readify-submit {
+        background-color: rgb(51, 51, 51);
+        color: white;
+        border: none;
+        padding: 10px 30px;
+    }
+
+    .btn-readify-submit:hover {
+        background-color: #2e2e2e;
+    }
+
+    .btn-return {
+        color: #000;
+        border: 1px solid #2e2e2e;
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-return:hover {
+        background-color: #2e2e2e;
+        color: white;
+        border-color: #2e2e2e;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="text-center mb-4">
+    <h1>Ajouter un nouveau livre</h1>
+</div>
+
+<div class="form-container">
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+    <div class="mb-3">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.titre) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.prix) }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.prix) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.image) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.auteur) }}
+        {{ form_widget(form.auteur, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.auteur) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.categories) }}
+        {{ form_widget(form.categories, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.categories) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-readify-submit"> Enregistrer le livre</button>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ path('app_livre_index') }}" class="btn btn-return"> Retour à la liste</a>
+</div>
+{% endblock %}

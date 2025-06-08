@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Admin{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .admin-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: 0.3s ease;
+    }
+
+    .admin-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .admin-card .card-title {
+        color:rgb(36, 35, 35);
+        font-weight: 600;
+    }
+
+    .admin-section-title {
+        color:rgb(21, 21, 21);
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="admin-section-title">Bienvenue dans l'Espace Admin</h1>
+        <p class="lead text-muted">Gérez toutes les fonctionnalités du site en toute simplicité.</p>
+    </div>
+
+    <div class="text-center mb-5">
+        <h4 class="mb-3" style="color:rgb(20, 20, 20);">Informations de votre compte</h4>
+        <table class="table table-bordered w-50 mx-auto">
+            <tbody>
+                <tr><th>ID</th><td>{{ user.id }}</td></tr>
+                <tr><th>Nom</th><td>{{ user.nom }}</td></tr>
+                <tr><th>Email</th><td>{{ user.email }}</td></tr>
+                <tr><th>Rôle</th><td>{{ user.roles[0] }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card admin-card text-center p-3 h-100">
+                <h5 class="card-title"> Gérer les utilisateurs</h5>
+                <p>Ajoutez, modifiez ou supprimez des utilisateurs dans le système.</p>
+                <a href="{{ path('app_utilisateur_index') }}" class="btn btn-readify-outline">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card admin-card text-center p-3 h-100">
+                <h5 class="card-title"> Gérer les livres</h5>
+                <p>Ajoutez, modifiez ou supprimez des livres dans votre catalogue.</p>
+                <a href="{{ path('app_livre_index') }}" class="btn btn-readify-outline">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card admin-card text-center p-3 h-100">
+                <h5 class="card-title"> Gérer les catégories</h5>
+                <p>Organisez les livres par catégories pour une meilleure navigation.</p>
+                <a href="{{ path('app_categorie_index') }}" class="btn btn-readify-outline">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card admin-card text-center p-3 h-100">
+                <h5 class="card-title"> Gérer les commandes</h5>
+                <p>Suivez et gérez les commandes passées par les utilisateurs.</p>
+                <a href="{{ path('app_commande_index') }}" class="btn btn-readify-outline">Accéder</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

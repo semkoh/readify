@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .profile-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 600px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+
+    .profile-card h1 {
+        color:rgb(22, 22, 22);
+        font-weight: bold;
+    }
+
+    .profile-card h4 {
+        color: rgb(51, 51, 51);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .list-group-item {
+        font-size: 1rem;
+        border: none;
+        padding: 12px 16px;
+    }
+
+    .list-group-item strong {
+        color: #2c2c2c;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="profile-card">
+        <div class="text-center mb-4">
+            <h1>Bienvenue {{ user.prenom }} </h1>
+        </div>
+
+        <h4>Mes informations</h4>
+        <ul class="list-group mb-4">
+            <li class="list-group-item"><strong>Nom :</strong> {{ user.nom }}</li>
+            <li class="list-group-item"><strong>Prénom :</strong> {{ user.prenom }}</li>
+            <li class="list-group-item"><strong>Email :</strong> {{ user.email }}</li>
+            <li class="list-group-item"><strong>Rôle :</strong> {{ user.role.value|upper }}</li>
+        </ul>
+
+        <div class="text-center">
+            <a href="{{ path('app_logout') }}" class="btn btn-readify-outline">Se déconnecter</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

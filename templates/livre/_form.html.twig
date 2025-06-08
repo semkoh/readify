@@ -1,0 +1,43 @@
+{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.titre) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.prix) }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.prix) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.image) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.auteur) }}
+        {{ form_widget(form.auteur, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.auteur) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.categories) }}
+        {{ form_widget(form.categories, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.categories) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-success px-4" style="background-color: rgb(51, 51, 51); color: white;">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}

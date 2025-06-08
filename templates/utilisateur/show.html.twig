@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Utilisateur{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .table th {
+        width: 40%;
+    }
+
+    .btn-actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 style="color:rgb(9, 9, 9); font-weight: bold;"> Détails de l'Utilisateur</h1>
+    </div>
+
+    <div class="card p-4 shadow-lg mx-auto" style="max-width: 700px; background-color: #f9f9f9; border-radius: 15px;">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ utilisateur.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ utilisateur.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ utilisateur.prenom }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ utilisateur.email }}</td>
+                </tr>
+                <tr>
+                    <th>Mot de Passe</th>
+                    <td></td>
+                </tr>
+
+
+                <tr>
+                    <th>Rôle</th>
+                    <td>{{ utilisateur.role.value }}</td>
+                </tr>
+                <tr>
+                    <th>Date de désactivation</th>
+                    <td>{{ utilisateur.dateDesactivation ? utilisateur.dateDesactivation|date('Y-m-d') : 'Non désactivé' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="btn-actions mt-4">
+            <a href="{{ path('app_utilisateur_index') }}" class="btn btn-readify-outline"> Retour à la liste</a>
+            <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-readify-outline"> Modifier</a>
+        </div>
+
+        <div class="text-center mt-4">
+            {{ include('utilisateur/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+{% endblock %}

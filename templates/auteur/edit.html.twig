@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un Auteur{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .form-container {
+        max-width: 650px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="mb-4" style="color:rgb(16, 16, 16);"> Modifier l'Auteur</h1>
+    </div>
+
+    <div class="form-container">
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.nom, 'Nom de l\'auteur', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.prenom, 'Prénom de l\'auteur', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le prénom'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.urlPhotoProfil, 'Photo de profil (URL)', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.urlPhotoProfil, {'attr': {'class': 'form-control', 'placeholder': 'https://...'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.biographie, 'Biographie', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.biographie, {'attr': {'class': 'form-control', 'placeholder': 'Brève biographie'}}) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-readify-outline"> Mettre à jour</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ path('app_auteur_index') }}" class="btn btn-readify-outline"> Retour à la liste des auteurs</a>
+    </div>
+</div>
+{% endblock %}

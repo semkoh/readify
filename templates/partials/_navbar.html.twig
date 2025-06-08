@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg shadow-sm px-4" style="background-color: rgba(216, 187, 150, 0.64);">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-white" href="{{ path('app_home') }}">
+       Readify
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_home') }}">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_livre_index') }}">Livres</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_auteur_index') }}">Auteurs</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ path('app_commande_index') }}"> Panier</a></li>
+      </ul>
+
+      <form class="d-flex me-3" method="GET" action="{{ path('app_livre_index') }}">
+        <input class="form-control me-2" type="search" placeholder="Rechercher un livre" name="search"
+               value="{{ app.request.query.get('search') }}" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit">Rechercher</button>
+      </form>
+
+      <ul class="navbar-nav">
+        {% if app.user %}
+          <li class="nav-item">
+            {% if is_granted('ROLE_ADMIN') %}
+              <a class="nav-link text-white" href="{{ path('app_admin') }}"> Mon compte</a>
+            {% else %}
+              <a class="nav-link text-white" href="{{ path('app_profil') }}"> Mon compte</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ path('app_logout') }}">Déconnexion</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-outline-dark me-2" href="{{ path('app_register') }}">Inscription</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-dark" href="{{ path('app_login') }}">Connexion</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

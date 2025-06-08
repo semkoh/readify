@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Auteur{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .card-auteur-detail {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .auteur-photo {
+        border-radius: 50%;
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .auteur-header {
+        color:rgb(24, 24, 24);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auteur-table th {
+        width: 30%;
+        color: #444;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .btn-group-center {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1 class="auteur-header"> Détails de l'Auteur</h1>
+
+<div class="card-auteur-detail">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center mb-3">
+            {% if auteur.urlPhotoProfil %}
+                <img src="{{ auteur.urlPhotoProfil }}" alt="Photo de {{ auteur.nom }}" class="auteur-photo">
+            {% else %}
+                <img src="https://via.placeholder.com/140" alt="Photo par défaut" class="auteur-photo">
+            {% endif %}
+            <h4 class="mt-3">{{ auteur.nom }} {{ auteur.prenom }}</h4>
+        </div>
+        <div class="col-md-8">
+            <table class="table auteur-table">
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ auteur.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ auteur.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ auteur.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Biographie</th>
+                        <td>{{ auteur.biographie }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="btn-group-center">
+    <a href="{{ path('app_auteur_index') }}" class="btn btn-readify-outline"> Retour</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}" class="btn btn-readify-outline">Modifier</a>
+    {% endif %}
+</div>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="text-center mt-4">
+        {{ include('auteur/_delete_form.html.twig') }}
+    </div>
+{% endif %}
+{% endblock %}

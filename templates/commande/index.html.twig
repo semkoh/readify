@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block stylesheets %}
+<style>
+    h1 {
+        color:rgb(12, 12, 12);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .table thead {
+        background-color: #f5f5f5;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 5px 12px;
+        font-size: 0.9rem;
+        margin: 2px;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .btn-pay {
+        background-color: #198754;
+        color: white;
+        border: none;
+        padding: 5px 12px;
+        font-size: 0.9rem;
+    }
+
+    .btn-pay:hover {
+        background-color: #146c43;
+    }
+
+    .empty-row {
+        background-color:rgb(19, 18, 18);
+        color: white;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Mes Commandes</h1>
+
+    <div class="card p-4 shadow-sm rounded">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Total (€)</th>
+                    <th>État</th>
+                    <th>Paiement</th>
+                    <th>Méthode</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                    <tr>
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d') : '-' }}</td>
+                        <td>{{ commande.prixTotal }} €</td>
+                        <td class="text-capitalize">{{ commande.etat }}</td>
+                        <td>{{ commande.datePaiement ? commande.datePaiement|date('Y-m-d') : '-' }}</td>
+                        <td>{{ commande.methodePaiement ?: '-' }}</td>
+                        <td>
+                            <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="btn btn-readify-outline btn-sm">
+                                Voir
+                            </a>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-readify-outline btn-sm">
+                                    Modifier
+                                </a>
+                            {% endif %}
+
+                            {% if commande.etat == 'en cours' and commande.utilisateur == app.user %}
+                                <a href="{{ path('app_paypal_create_payment', {'orderId': commande.id}) }}" class="btn btn-pay btn-sm">
+                                     Payer
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center empty-row">Aucune commande trouvée</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-center mt-4">
+            <a href="{{ path('app_commande_new') }}" class="btn btn-readify-outline">
+                 Ajouter une commande
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

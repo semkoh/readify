@@ -1,0 +1,71 @@
+{% block stylesheets %}
+<style>
+    .form-avis {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-avis h3 {
+        color: #b06464;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+
+    .form-avis .form-control {
+        border-radius: 6px;
+        font-size: 0.95rem;
+    }
+
+    .login-required {
+        text-align: center;
+        margin-top: 20px;
+        font-style: italic;
+        color: #555;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="form-avis">
+    <h3>Ajouter votre avis</h3>
+
+    {% if app.user %}
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.note) }}
+                {{ form_widget(form.note, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.contenu) }}
+                {{ form_widget(form.contenu, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-readify-outline">Envoyer</button>
+            </div>
+        {{ form_end(form) }}
+    {% else %}
+        <p class="login-required">Vous devez être connecté pour laisser un avis.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}🛒 Mon Panier{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color:rgb(16, 15, 15);"> Mon Panier</h1>
+
+    {% if commande is null or commande.contenirs|length == 0 %}
+        <div class="alert alert-info text-center">Ton panier est vide pour le moment.</div>
+    {% else %}
+        <div class="card p-4 shadow-sm">
+            <table class="table table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Livre</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in commande.contenirs %}
+                        <tr>
+                            <td>
+                                <strong>{{ item.livre.titre }}</strong><br>
+                                <em>de {{ item.livre.auteur.nom }}</em>
+                            </td>
+                            <td>{{ item.quantite }}</td>
+                            <td>{{ item.livre.prix }} €</td>
+                            <td>{{ item.livre.prix * item.quantite }} €</td>
+                            <td>
+                                <form action="{{ path('app_panier_add', {'livreId': item.livre.id}) }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-readify-outline">+</button>
+                                </form>
+                                <form action="{{ path('app_panier_decrement', {'livreId': item.livre.id}) }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-readify-outline">-</button>
+                                </form>
+                                <form action="{{ path('app_contenir_remove', {'id': item.id}) }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-readify-outline">🗑</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="text-end mt-4">
+                <h4>Total : <strong>{{ commande.prixTotal }} €</strong></h4>
+                <form action="{{ path('app_panier_clear') }}" method="POST" style="display: inline-block;">
+                    <button type="submit" class="btn btn-readify-outline"> Vider le panier</button>
+                </form>
+                <form action="{{ path('app_panier_valider') }}" method="POST" style="display: inline-block;">
+                    <button type="submit" class="btn btn-readify-outline"> Passer la commande</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

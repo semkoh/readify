@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+    <h1>Liste des Avis</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Note</th>
+                <th>Contenu</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for avis in avis %}
+                <tr>
+                    <td>{{ avis.note }}</td>
+                    <td>{{ avis.contenu }}</td>
+                    <td>{{ avis.dateAvis|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('app_avis_show', {'id': avis.id}) }}">Voir</a>
+                        <a href="{{ path('app_avis_edit', {'id': avis.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun avis trouvé</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

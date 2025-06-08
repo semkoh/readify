@@ -1,0 +1,30 @@
+ 
+ {% block stylesheets %}
+<style>
+    .btn-readify-outline {
+        color: rgb(15, 14, 14);
+        border: 1px solid rgb(46, 45, 45);
+        background-color: transparent;
+        transition: 0.3s ease-in-out;
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+
+    .btn-readify-outline:hover {
+        background-color: rgb(25, 25, 25);
+        color: white;
+        border-color: rgb(84, 83, 83);
+    }
+</style>
+{% endblock %}
+
+<form method="post"
+      action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}"
+      onsubmit="return confirm('Are you sure you want to delete this item?');"
+      class="d-inline-block mt-3">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+    <button type="submit" class="btn btn-readify-outline">
+         Supprimer 
+    </button>
+</form>

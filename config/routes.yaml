@@ -3,3 +3,18 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# ADMIN
+app_admin:
+    path: /admin
+    controller: App\Controller\AdminController::index
+
+# UTILISATEUR
+app_profil:
+    path: /profil
+    controller: App\Controller\ProfilController::index
+
+# VISITEUR
+app_visiteur:
+    path: /visiteur
+    controller: App\Controller\VisiteurController::index

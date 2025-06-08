@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur Readify{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: url('/images/books-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .home-content {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background-color: rgba(216, 187, 150, 0.64); /* effet flou transparent */
+        backdrop-filter: blur(5px);
+    }
+
+    .hero-text {
+        text-align: center;
+        color:rgb(18, 17, 17);
+        max-width: 800px;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color:rgb(4, 4, 4);
+        margin-bottom: 20px;
+    }
+
+    .hero-text p {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .quote {
+        font-style: italic;
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: #444;
+    }
+
+    .author {
+        display: block;
+        font-weight: bold;
+        color:rgb(44, 43, 43);
+        margin-top: 5px;
+    }
+
+    
+
+    .btn-container {
+        margin-top: 30px;
+    }
+
+    .btn-container .btn {
+        margin: 0 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="home-content">
+    <div class="hero-text">
+        <h1>Bienvenue sur Readify </h1>
+        <p>Explorez un monde de lectures inspirantes et enrichissantes.</p>
+
+        <div class="quote">
+            « La lecture agrandit l'âme. »
+            <span class="author">— Voltaire</span>
+        </div>
+        <div class="quote">
+            « Un livre est un jardin que l’on peut mettre dans sa poche. »
+            <span class="author">— Proverbe Arabe</span>
+        </div>
+        <div class="quote">
+            « Lire, c'est boire et manger. L'esprit qui ne lit pas maigrit comme le corps qui ne mange pas. »
+            <span class="author">— Victor Hugo</span>
+        </div>
+
+        <div class="btn-container">
+            <a href="{{ path('app_livre_index') }}" class="btn btn-outline-dark">Explorer les livres</a>
+               {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-dark">Se connecter</a>
+                     <a href="{{ path('app_register') }}" class="btn btn-outline-dark">S’inscrire</a>
+                {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

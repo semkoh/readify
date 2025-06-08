@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un Livre{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .form-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .form-card h1 {
+        color: #212121;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .btn-dark-readify {
+        background-color: rgb(51, 51, 51);
+        color: white;
+        border: none;
+    }
+
+    .btn-dark-readify:hover {
+        background-color: rgb(34, 34, 34);
+    }
+
+    .btn-outline-dark-readify {
+        border: 1px solid rgb(51, 51, 51);
+        color: rgb(51, 51, 51);
+        background-color: transparent;
+    }
+
+    .btn-outline-dark-readify:hover {
+        background-color: rgb(51, 51, 51);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="form-card mt-5">
+    <h1 class="text-center">Modifier le livre</h1>
+
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+    <div class="mb-3">
+        {{ form_label(form.titre, 'Titre du livre', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.prix, 'Prix (€)', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.image, 'Image du livre', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.auteur, 'Auteur', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.auteur, {'attr': {'class': 'form-select'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.categories, 'Catégories', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.categories, {'attr': {'class': 'form-select'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.fichierNumerique, 'Fichier Numérique', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.fichierNumerique, {'attr': {'class': 'form-control'}}) }}
+
+        {% if livre.fichierNumerique %}
+            <div class="mt-2">
+                <p class="text-muted mb-0">
+                    Fichier actuel :
+                    <a href="{{ asset('uploads/livres/' ~ livre.fichierNumerique) }}" target="_blank">
+                        Télécharger
+                    </a>
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-dark-readify"> Mettre à jour</button>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ path('app_livre_index') }}" class="btn btn-outline-dark-readify"> Retour à la liste</a>
+</div>
+{% endblock %}
