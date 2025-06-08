@@ -121,4 +121,7 @@ class AvisController extends AbstractController
         // Rediriger vers la page du livre après la suppression de l'avis
         return $this->redirectToRoute('app_livre_show', ['id' => $avis->getLivre()->getId()]);
     }
+    // TODO: Affichage des avis par livre
+
+    
 }
